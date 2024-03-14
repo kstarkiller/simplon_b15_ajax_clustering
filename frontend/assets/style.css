@@ -1,0 +1,19 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+}
+
+#modelInfo {
+  margin-bottom: 20px;
+}
+
+#plot-container {
+  text-align: center;
+}
+
+#plot-container p {
+  color: #999;
+}
