@@ -1,9 +1,9 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import base64
 from io import BytesIO
 import pickle
+import matplotlib.pyplot as plt
 
 
 def pca_predict():
@@ -44,9 +44,13 @@ def pca_predict():
     plt.colorbar(label="Cluster")
     plt.grid(True)
 
+    # Set the background color to transparent
+    fig = plt.gcf()
+    fig.patch.set_alpha(0)
+
     # Convert plot to base64
     buffer = BytesIO()
-    plt.savefig(buffer, format='png')
+    plt.savefig(buffer, format='png', transparent=True)
     buffer.seek(0)
     plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
