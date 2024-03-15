@@ -39,7 +39,7 @@ def income_kmeans_predict(n_clusters=5):
     plt.close()
 
     return {'model': income_kmeans,
-            'data': data,
+            'data': data.to_dict(),
             'clusters': n_clusters,
             'MSE': mse,
             'plot_base64': plot_base64}
@@ -79,7 +79,7 @@ def age_kmeans_predict(n_clusters=5):
     plt.close()
 
     return {'model': age_kmeans,
-            'data': data,
+            'data': data.to_dict(),
             'clusters': n_clusters,
             'MSE': mse,
             'plot_base64': plot_base64}
@@ -120,7 +120,7 @@ def income_gmm_predict(n_clusters=5):
     plt.close()
 
     return {'model': income_gmm,
-            'data': data,
+            'data': data.to_dict(),
             'clusters': n_clusters,
             'BIC': bic,
             'AIC': aic,
@@ -162,7 +162,7 @@ def age_gmm_predict(n_clusters=5):
     plt.close()
 
     return {'model': age_gmm,
-            'data': data,
+            'data': data.to_dict(),
             'clusters': n_clusters,
             'BIC': bic,
             'AIC': aic,
