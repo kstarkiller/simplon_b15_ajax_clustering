@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
@@ -38,8 +39,7 @@ def income_kmeans_predict(n_clusters=5):
     plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
 
-    return {'model': income_kmeans,
-            'data': data.to_dict(),
+    return {'data': df.to_dict(),
             'clusters': n_clusters,
             'MSE': mse,
             'plot_base64': plot_base64}
@@ -78,8 +78,7 @@ def age_kmeans_predict(n_clusters=5):
     plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
 
-    return {'model': age_kmeans,
-            'data': data.to_dict(),
+    return {'data': df.to_dict(),
             'clusters': n_clusters,
             'MSE': mse,
             'plot_base64': plot_base64}
@@ -92,7 +91,7 @@ def income_gmm_predict(n_clusters=5):
     # GMM clustering based on Annual Income¶
     data = df.iloc[:,[3,4]].values
 
-    income_gmm = GaussianMixture(n_components=i)
+    income_gmm = GaussianMixture(n_components=n_clusters)
     income_gmm.fit(data)
     bic = income_gmm.bic(data) # Stockage du BIC
     aic = income_gmm.aic(data) # Stockage de l'AIC
@@ -105,7 +104,6 @@ def income_gmm_predict(n_clusters=5):
     for i in range(0, n_clusters):
         ax.scatter(data[income_gmm==i,0],data[income_gmm==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
     
-    ax.scatter(income_gmm.cluster_centers_[:,0],income_gmm.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
     plt.xlabel('Annual Income')
     plt.ylabel('Spending Score')
@@ -119,8 +117,7 @@ def income_gmm_predict(n_clusters=5):
     plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
 
-    return {'model': income_gmm,
-            'data': data.to_dict(),
+    return {'data': df.to_dict(),
             'clusters': n_clusters,
             'BIC': bic,
             'AIC': aic,
@@ -134,7 +131,7 @@ def age_gmm_predict(n_clusters=5):
     # GMM clustering based on Annual Income¶
     data = df.iloc[:,[2,4]].values
 
-    age_gmm = GaussianMixture(n_components=i)
+    age_gmm = GaussianMixture(n_components=n_clusters)
     age_gmm.fit(data)
     bic = age_gmm.bic(data) # Stockage du BIC
     aic = age_gmm.aic(data) # Stockage de l'AIC
@@ -147,7 +144,6 @@ def age_gmm_predict(n_clusters=5):
     for i in range(0, n_clusters):
         ax.scatter(data[age_gmm==i,0],data[age_gmm==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
     
-    ax.scatter(age_gmm.cluster_centers_[:,0],age_gmm.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
     plt.xlabel('Age')
     plt.ylabel('Spending Score')
@@ -161,8 +157,7 @@ def age_gmm_predict(n_clusters=5):
     plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
 
-    return {'model': age_gmm,
-            'data': data.to_dict(),
+    return {'data': df.to_dict(),
             'clusters': n_clusters,
             'BIC': bic,
             'AIC': aic,
