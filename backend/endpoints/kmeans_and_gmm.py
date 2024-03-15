@@ -26,8 +26,8 @@ def income_kmeans_predict(n_clusters=5):
     
     ax.scatter(income_kmeans.cluster_centers_[:,0],income_kmeans.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
-    plt.xlabel(x)
-    plt.ylabel(y)
+    plt.xlabel('Annual Income')
+    plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
 
@@ -66,8 +66,8 @@ def age_kmeans_predict(n_clusters=5):
     
     ax.scatter(age_kmeans.cluster_centers_[:,0],age_kmeans.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
-    plt.xlabel(x)
-    plt.ylabel(y)
+    plt.xlabel('Age')
+    plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
 
@@ -107,8 +107,8 @@ def income_gmm_predict(n_clusters=5):
     
     ax.scatter(income_gmm.cluster_centers_[:,0],income_gmm.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
-    plt.xlabel(x)
-    plt.ylabel(y)
+    plt.xlabel('Annual Income')
+    plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
 
@@ -149,8 +149,8 @@ def age_gmm_predict(n_clusters=5):
     
     ax.scatter(age_gmm.cluster_centers_[:,0],age_gmm.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
-    plt.xlabel(x)
-    plt.ylabel(y)
+    plt.xlabel('Age')
+    plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
 
