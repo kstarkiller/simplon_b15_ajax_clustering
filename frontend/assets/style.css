@@ -1,9 +1,21 @@
+@font-face {
+  font-family: "StarWars";
+  src: url("STARWARS.ttf") format("truetype");
+}
+
 body {
-  font-family: Arial, sans-serif;
+  background-image: url("https://img.redbull.com/images/w_2600/q_auto,f_auto/redbullcom/2015/12/27/1331767414211_2/star-wars-spaceships-death-star");
+  background-position: center;
+  background-size: cover;
+  font-family: "StarWars";
 }
 
 h1 {
-  color: #333;
+  color: black;
+  text-align: center;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ffe918;
+  letter-spacing: 6px;
 }
 
 #modelInfo {
@@ -11,7 +23,26 @@ h1 {
 }
 
 #plot-container {
-  text-align: center;
+  width: 70vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#plot-container img {
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.content-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #plot-container p {
