@@ -12,7 +12,7 @@ $(document).ready(function () {
     },
   });
 
-  fetch("http://localhost:8000/data_and_plot/")
+  fetch("http://localhost:8000/plot_pca/")
     .then((response) => response.json())
     .then((data) => {
       var base64Plot = data.plot_base64;

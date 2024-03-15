@@ -24,10 +24,10 @@ def pca_predict():
 
     # Apply PCA transformation
     principal_components = pca.transform(data_scaled)
-    pca_df = pd.DataFrame(principal_components, columns=["PC1", "PC2"])
+    pca_df = pd.DataFrame(principal_components[:, :2], columns=["PC1", "PC2"])
 
     # Load KMeans model
-    with open("../models/kmeans.pkl", "rb") as file:
+    with open("models/kmeans.pkl", "rb") as file:
         kmeans = pickle.load(file)
 
     # Predict clusters
