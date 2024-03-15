@@ -5,6 +5,7 @@ from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 import base64
 from io import BytesIO
+from sklearn.cluster import KMeans
 
 def income_kmeans_predict(n_clusters=5):
     df = pd.read_csv('data/Mall_Customers.csv')
@@ -13,24 +14,26 @@ def income_kmeans_predict(n_clusters=5):
     # k-means clustering based on annual income
     data = df.iloc[:,[3,4]].values
 
-    income_kmeans=KMeans(n_clusters, init='k-means++',random_state=0)
-    income_kmeans.fit_predict(data)
+    income_kmeans=KMeans(n_clusters, init='k-means++',random_state=0, n_init="auto")
+    y = income_kmeans.fit_predict(data)
     mse = income_kmeans.inertia_ #inertia_ = to find the MSE value
 
-    colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown", "Gray",
-              "Cyan", "Magenta", "Lime", "Teal", "Lavender", "Maroon", "Olive", "Navy", "Aquamarine"]
-
+    df['Cluster'] = y
     #plotting the clusters
-    fig, ax = plt.subplots(figsize=(14,6))
-    for i in range(0, n_clusters):
-        ax.scatter(data[income_kmeans==i,0],data[income_kmeans==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
-    
-    ax.scatter(income_kmeans.cluster_centers_[:,0],income_kmeans.cluster_centers_[:,1],s=200,c='black',label='Centroid')
-    plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
+    plt.subplots(figsize=(10,6))
+    plt.scatter(df["Annual Income (k$)"], df["Spending Score (1-100)"],
+                c=df["Cluster"], cmap="viridis", edgecolor="k", s=100)
+
+    plt.scatter(income_kmeans.cluster_centers_[:,0],income_kmeans.cluster_centers_[:,1],s=200,c='black',label='Centroid')
+    plt.title(f'Cluster Segmentation of Customers for {n_clusters} clusters')
     plt.xlabel('Annual Income')
     plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
+
+    # Set the background color to transparent
+    fig = plt.gcf()
+    fig.patch.set_alpha(0)
 
     # Convert plot to base64
     buffer = BytesIO()
@@ -53,23 +56,27 @@ def age_kmeans_predict(n_clusters=5):
     data = df.iloc[:,[2,4]].values
 
     age_kmeans=KMeans(n_clusters, init='k-means++',random_state=0)
-    age_kmeans.fit_predict(data)
+    y = age_kmeans.fit_predict(data)
     mse = age_kmeans.inertia_ #inertia_ = to find the MSE value
     
     colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown", "Gray",
               "Cyan", "Magenta", "Lime", "Teal", "Lavender", "Maroon", "Olive", "Navy", "Aquamarine"]
 
     #plotting the clusters
-    fig, ax = plt.subplots(figsize=(14,6))
+    plt.subplots(figsize=(10,6))
     for i in range(0, n_clusters):
-        ax.scatter(data[age_kmeans==i,0],data[age_kmeans==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
-    
-    ax.scatter(age_kmeans.cluster_centers_[:,0],age_kmeans.cluster_centers_[:,1],s=200,c='black',label='Centroid')
+        plt.scatter(data[y==i,0],data[y==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
+
+    plt.scatter(age_kmeans.cluster_centers_[:,0],age_kmeans.cluster_centers_[:,1],s=200,c='black',label='Centroid')
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
     plt.xlabel('Age')
     plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
+
+    # Set the background color to transparent
+    fig = plt.gcf()
+    fig.patch.set_alpha(0)
 
     # Convert plot to base64
     buffer = BytesIO()
@@ -92,7 +99,7 @@ def income_gmm_predict(n_clusters=5):
     data = df.iloc[:,[3,4]].values
 
     income_gmm = GaussianMixture(n_components=n_clusters)
-    income_gmm.fit(data)
+    y = income_gmm.fit_predict(data)
     bic = income_gmm.bic(data) # Stockage du BIC
     aic = income_gmm.aic(data) # Stockage de l'AIC
 
@@ -100,15 +107,19 @@ def income_gmm_predict(n_clusters=5):
               "Cyan", "Magenta", "Lime", "Teal", "Lavender", "Maroon", "Olive", "Navy", "Aquamarine"]
 
     #plotting the clusters
-    fig, ax = plt.subplots(figsize=(14,6))
+    plt.subplots(figsize=(10,6))
     for i in range(0, n_clusters):
-        ax.scatter(data[income_gmm==i,0],data[income_gmm==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
+        plt.scatter(data[y==i,0],data[y==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
     
     plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
     plt.xlabel('Annual Income')
     plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
+
+    # Set the background color to transparent
+    fig = plt.gcf()
+    fig.patch.set_alpha(0)
 
     # Convert plot to base64
     buffer = BytesIO()
@@ -132,23 +143,25 @@ def age_gmm_predict(n_clusters=5):
     data = df.iloc[:,[2,4]].values
 
     age_gmm = GaussianMixture(n_components=n_clusters)
-    age_gmm.fit(data)
+    y = age_gmm.fit_predict(data)
     bic = age_gmm.bic(data) # Stockage du BIC
     aic = age_gmm.aic(data) # Stockage de l'AIC
 
-    colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown", "Gray",
-              "Cyan", "Magenta", "Lime", "Teal", "Lavender", "Maroon", "Olive", "Navy", "Aquamarine"]
-
+    df['Cluster'] = y
     #plotting the clusters
-    fig, ax = plt.subplots(figsize=(14,6))
-    for i in range(0, n_clusters):
-        ax.scatter(data[age_gmm==i,0],data[age_gmm==i,1],s=100,c=colors[i],label=f'Cluster {i+1}')
+    plt.subplots(figsize=(10,6))
+    plt.scatter(df["Age"], df["Spending Score (1-100)"],
+                c=df["Cluster"], cmap="viridis", edgecolor="k", s=100)
     
-    plt.title(f'Cluster Segmentation of Customers for {i+1} clusters')
+    plt.title(f'Cluster Segmentation of Customers for {n_clusters} clusters')
     plt.xlabel('Age')
     plt.ylabel('Spending Score')
     plt.legend()
     plt.grid(True)
+
+    # Set the background color to transparent
+    fig = plt.gcf()
+    fig.patch.set_alpha(0)
 
     # Convert plot to base64
     buffer = BytesIO()

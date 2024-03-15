@@ -55,4 +55,7 @@ def pca_predict():
     plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
 
-    return {"data": data.to_dict(), "plot_base64": plot_base64}
+    # Evaluate the model
+    mse = kmeans.inertia_
+
+    return {"data": data.to_dict(), "MSE": mse, "plot_base64": plot_base64}

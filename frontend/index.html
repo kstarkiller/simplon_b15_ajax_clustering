@@ -9,12 +9,19 @@
   <body>
     <h1>AJAX Clustering</h1>
     <div id="modelInfo"></div>
-    <h1>PCA Clustering Plot</h1>
+    <select id="varChoice">
+      <option value="kmeans">K-Means</option>
+      <option value="PCA" selected>PCA</option>
+      <option value="gmm">Gaussian Mixture Model</option>
+    </select>
     <div class="content-container">
       <div id="plot-container">
         <p value="hello World" id="test">Loading...</p>
       </div>
     </div>
+    <p id="mse" style="color: white;"></p>
+    <p id="bic" style="color: white;"></p>
+    <p id="aic" style="color: white;"></p>
     <script>
       let test = document.getElementById("test");
       console.log(test.getAttribute("value"));
