@@ -6,7 +6,7 @@ import base64
 from io import BytesIO
 
 def income_kmeans_predict(n_clusters=5):
-    df = pd.read_csv('/home/kevin/simplon_wsl/briefs/b15_ajax_clustering/repo_b15/data/Mall_Customers.csv')
+    df = pd.read_csv('data/Mall_Customers.csv')
     df.sample(10)
 
     # k-means clustering based on annual income
@@ -46,7 +46,7 @@ def income_kmeans_predict(n_clusters=5):
 
 
 def age_kmeans_predict(n_clusters=5):
-    df = pd.read_csv('/home/kevin/simplon_wsl/briefs/b15_ajax_clustering/repo_b15/data/Mall_Customers.csv')
+    df = pd.read_csv('data/Mall_Customers.csv')
     df.sample(10)
 
     # k-means clustering based on annual income
@@ -86,7 +86,7 @@ def age_kmeans_predict(n_clusters=5):
 
 
 def income_gmm_predict(n_clusters=5):
-    df = pd.read_csv('/home/kevin/simplon_wsl/briefs/b15_ajax_clustering/repo_b15/data/Mall_Customers.csv')
+    df = pd.read_csv('data/Mall_Customers.csv')
     df.sample(10)
 
     # GMM clustering based on Annual Income¶
@@ -128,7 +128,7 @@ def income_gmm_predict(n_clusters=5):
 
 
 def age_gmm_predict(n_clusters=5):
-    df = pd.read_csv('/home/kevin/simplon_wsl/briefs/b15_ajax_clustering/repo_b15/data/Mall_Customers.csv')
+    df = pd.read_csv('data/Mall_Customers.csv')
     df.sample(10)
 
     # GMM clustering based on Annual Income¶
