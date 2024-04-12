@@ -1,5 +1,5 @@
 # FROM python:3.11-alpine
-FROM python:3.10-alpine
+FROM python:3.10-slim
 
 # Install Python packages
 RUN pip install --no-cache-dir pandas matplotlib scikit-learn fastapi uvicorn
