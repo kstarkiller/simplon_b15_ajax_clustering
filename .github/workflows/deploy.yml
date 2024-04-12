@@ -18,11 +18,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Update Azure CLI
+        run: az upgrade --yes
+
       - name: Set Azure Subscription
         run: az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}
 
       - name: List Azure Subscriptions (Debug)
         run: az account list --output table
+
+      - name: Show Current Azure Account
+        run: az account show
 
       - name: Login to Azure Container Registry
         run: |
