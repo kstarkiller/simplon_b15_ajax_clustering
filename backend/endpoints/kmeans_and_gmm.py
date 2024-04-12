@@ -14,7 +14,7 @@ def income_kmeans_predict(n_clusters=5):
     # k-means clustering based on annual income
     data = df.iloc[:,[3,4]].values
 
-    income_kmeans=KMeans(n_clusters, init='k-means++',random_state=0, n_init="auto")
+    income_kmeans=KMeans(n_clusters, init='k-means++',random_state=0, n_init=10)
     y = income_kmeans.fit_predict(data)
     mse = income_kmeans.inertia_ #inertia_ = to find the MSE value
 

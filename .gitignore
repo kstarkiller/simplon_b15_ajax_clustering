@@ -16,7 +16,6 @@ __pycache__/
 *.csv
 
 # Docker
-Dockerfile
 .dockerignore
 
 # C extensions
