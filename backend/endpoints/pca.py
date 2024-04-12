@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def pca_predict():
     """
     Load the Mall Customers dataset, apply PCA and KMeans clustering,
-    and return the original data and a base64 plot.
+    and return the original data and a base64 plot.  
     """
     data = pd.read_csv("data/Mall_Customers.csv")
     data_numeric = data.drop(["CustomerID", "Gender"], axis=1)
@@ -20,7 +20,7 @@ def pca_predict():
 
     # Load PCA model
     with open("models/pca.pkl", "rb") as file:
-        pca = pickle.load(file)
+        pca = pickle.load(file   )
 
     # Apply PCA transformation
     principal_components = pca.transform(data_scaled)
