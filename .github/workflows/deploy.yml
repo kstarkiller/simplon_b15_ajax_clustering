@@ -12,6 +12,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    # Azure Login Step
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
       
     - name: Login to Azure Container Registry
       uses: azure/docker-login@v1
@@ -35,12 +41,11 @@ jobs:
     - name: Deploy to Azure Web App - Backend
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'backend-app'  # Replace with your Azure Web App name
+        app-name: 'backend-app'
         images: 'ajaxclusterappacr.azurecr.io/backend:${{ github.sha }}'
         
     - name: Deploy to Azure Web App - Frontend
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'frontend-app'  # Replace with your Azure Web App name
+        app-name: 'frontend-app'
         images: 'ajaxclusterappacr.azurecr.io/frontend:${{ github.sha }}'
-        
