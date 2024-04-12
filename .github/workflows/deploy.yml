@@ -1,74 +1,46 @@
-name: Deploy to Azure
+name: Azure Deployment
 
 on:
   push:
     branches:
-      - master
+      - master 
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Update Azure CLI
-        run: az upgrade --yes
-
-      - name: Set Azure Subscription
-        run: az account set --subscription ${{ secrets.SUBSCRIPTION_ID }}
-
-      - name: List Azure Subscriptions (Debug)
-        run: az account list --output table
-
-      - name: Show Current Azure Account
-        run: az account show
-
-      - name: Login to Azure Container Registry
-        run: |
-          echo ${{ secrets.REGISTRY_PASSWORD }} | docker login ${{ secrets.REGISTRY_LOGIN_SERVER }} --username ${{ secrets.REGISTRY_USERNAME }} --password-stdin
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      - name: Build and Push Backend Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./backend
-          file: ./backend/Dockerfile
-          push: true
-          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/backend:${{ github.sha }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      - name: Build and Push Frontend Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/frontend:${{ github.sha }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      - name: Deploy Backend to Azure Container Instance
-        run: |
-          az container create --resource-group Loke-60000 --name ajax-cluster-backend --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/backend:${{ github.sha }} --cpu 1 --memory 1.5 --registry-login-server ${{ secrets.REGISTRY_LOGIN_SERVER }} --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --dns-name-label ajax-cluster-backend --ports 8000
-
-      - name: Deploy Frontend to Azure Container Instance
-        run: |
-          az container create --resource-group Loke-60000 --name ajax-cluster-frontend --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/frontend:${{ github.sha }} --cpu 1 --memory 1.5 --registry-login-server ${{ secrets.REGISTRY_LOGIN_SERVER }} --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --dns-name-label ajax-cluster-frontend --ports 8080
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ajaxclusterappacr.azurecr.io
+        username: ajaxclusterappacr
+        password: ${{ secrets.ACR_PASSWORD }}
+        
+    - name: Build and push backend Docker image
+      working-directory: backend
+      run: |
+        docker build . -t ajaxclusterappacr.azurecr.io/backend:${{ github.sha }}
+        docker push ajaxclusterappacr.azurecr.io/backend:${{ github.sha }}
+        
+    - name: Build and push frontend Docker image
+      working-directory: frontend
+      run: |
+        docker build . -t ajaxclusterappacr.azurecr.io/frontend:${{ github.sha }}
+        docker push ajaxclusterappacr.azurecr.io/frontend:${{ github.sha }}
+        
+    - name: Deploy to Azure Web App - Backend
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'backend-app'  # Replace with your Azure Web App name
+        images: 'ajaxclusterappacr.azurecr.io/backend:${{ github.sha }}'
+        
+    - name: Deploy to Azure Web App - Frontend
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'frontend-app'  # Replace with your Azure Web App name
+        images: 'ajaxclusterappacr.azurecr.io/frontend:${{ github.sha }}'
+        
