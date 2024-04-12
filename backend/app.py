@@ -17,6 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/plot_pca/")
 async def plot_pca():
     return pca_predict()
