@@ -78,4 +78,3 @@ for num_clusters in clusters:
 # Save the last KMeans model
 with open("../backend/endpoints/models/kmeans.pkl", "wb") as file:
     pickle.dump(kmeans, file)
-

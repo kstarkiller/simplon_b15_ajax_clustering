@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def pca_predict():
     """
-    Load the Mall Customers dataset, apply PCA and KMeans clustering, 
+    Load the Mall Customers dataset, apply PCA and KMeans clustering,
     and return the original data and a base64 plot.
     """
     data = pd.read_csv("data/Mall_Customers.csv")
@@ -36,8 +36,14 @@ def pca_predict():
 
     # Generate plot
     plt.figure(figsize=(10, 6))
-    plt.scatter(pca_df["PC1"], pca_df["PC2"],
-                c=pca_df["Cluster"], cmap="viridis", edgecolor="k", s=100)
+    plt.scatter(
+        pca_df["PC1"],
+        pca_df["PC2"],
+        c=pca_df["Cluster"],
+        cmap="viridis",
+        edgecolor="k",
+        s=100,
+    )
     plt.title("PCA Clustering on Mall Customers Data")
     plt.xlabel("Principal Component 1")
     plt.ylabel("Principal Component 2")
@@ -50,9 +56,9 @@ def pca_predict():
 
     # Convert plot to base64
     buffer = BytesIO()
-    plt.savefig(buffer, format='png', transparent=True)
+    plt.savefig(buffer, format="png", transparent=True)
     buffer.seek(0)
-    plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
     plt.close()
 
     # Evaluate the model
