@@ -3,7 +3,7 @@ name: Azure Deployment
 on:
   push:
     branches:
-      - master 
+      - kev_deploy
 
 permissions:
   id-token: write
