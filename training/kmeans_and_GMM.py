@@ -1,16 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-import numpy as np
+# import numpy as np
 import pandas as pd
-import seaborn as sns
+# import seaborn as sns
 import plotly.express as px
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import LabelEncoder
+# from sklearn.preprocessing import LabelEncoder
 
 # from sklearn.metrics import classification_report, adjusted_rand_score, accuracy_score
 from sklearn.mixture import GaussianMixture
@@ -72,64 +66,48 @@ def plot_clusters(model, n_clusters, x, y):
     plt.legend()
     plt.show()
 
-
-# In[2]:
-
-
-customers_df = pd.read_csv("data/Mall_Customers.csv")
+customers_df = pd.read_csv("backend/endpoints/data/Mall_Customers.csv")
 customers_df.sample(10)
 
+# fig = px.scatter_3d(
+#     customers_df,
+#     x="Age",
+#     y="Annual Income (k$)",
+#     z="Spending Score (1-100)",
+#     color="Gender",
+# )
+# fig.update_layout(
+#     scene=dict(
+#         xaxis_title="Age", yaxis_title="Annual Income", zaxis_title="Spending score"
+#     ),
+#     width=800,
+#     height=600,
+# )
+# fig.show()
 
-# In[3]:
+# fig = px.scatter(
+#     customers_df, x="Annual Income (k$)", y="Spending Score (1-100)", color="Age"
+# )
+# fig.update_layout(scene=dict(xaxis_title="Annual Income", yaxis_title="Spending score"))
+# fig.show()
 
+# fig = px.scatter(
+#     customers_df, x="Spending Score (1-100)", y="Annual Income (k$)", color="Age"
+# )
+# fig.update_layout(scene=dict(yaxis_title="Annual Income", xaxis_title="Spending score"))
+# fig.show()
 
-fig = px.scatter_3d(
-    customers_df,
-    x="Age",
-    y="Annual Income (k$)",
-    z="Spending Score (1-100)",
-    color="Gender",
-)
-fig.update_layout(
-    scene=dict(
-        xaxis_title="Age", yaxis_title="Annual Income", zaxis_title="Spending score"
-    ),
-    width=800,
-    height=600,
-)
-fig.show()
+# fig = px.scatter(
+#     customers_df, x="Age", y="Annual Income (k$)", color="Spending Score (1-100)"
+# )
+# fig.update_layout(scene=dict(yaxis_title="Annual Income", xaxis_title="Age"))
+# fig.show()
 
-
-# In[4]:
-
-
-fig = px.scatter(
-    customers_df, x="Annual Income (k$)", y="Spending Score (1-100)", color="Age"
-)
-fig.update_layout(scene=dict(xaxis_title="Annual Income", yaxis_title="Spending score"))
-fig.show()
-
-fig = px.scatter(
-    customers_df, x="Spending Score (1-100)", y="Annual Income (k$)", color="Age"
-)
-fig.update_layout(scene=dict(yaxis_title="Annual Income", xaxis_title="Spending score"))
-fig.show()
-
-fig = px.scatter(
-    customers_df, x="Age", y="Annual Income (k$)", color="Spending Score (1-100)"
-)
-fig.update_layout(scene=dict(yaxis_title="Annual Income", xaxis_title="Age"))
-fig.show()
-
-fig = px.scatter(
-    customers_df, x="Age", y="Spending Score (1-100)", color="Annual Income (k$)"
-)
-fig.update_layout(scene=dict(yaxis_title="Spending Score", xaxis_title="Age"))
-fig.show()
-
-
-# In[5]:
-
+# fig = px.scatter(
+#     customers_df, x="Age", y="Spending Score (1-100)", color="Annual Income (k$)"
+# )
+# fig.update_layout(scene=dict(yaxis_title="Spending Score", xaxis_title="Age"))
+# fig.show()
 
 # k-means clustering based on annual income
 data = customers_df.iloc[:, [3, 4]].values
@@ -140,21 +118,13 @@ for i in range(1, 11):
     income_kmeans.fit_predict(data)
     E.append(income_kmeans.inertia_)  # inertia_ = to find the MSE value
 
-plt.plot(range(1, 11), E)
-plt.title("MSE by Number of Clusters")
-plt.xlabel("Number of Clusters")
-plt.ylabel("MSE")
-plt.show()
+# plt.plot(range(1, 11), E)
+# plt.title("MSE by Number of Clusters")
+# plt.xlabel("Number of Clusters")
+# plt.ylabel("MSE")
+# plt.show()
 
-
-# In[6]:
-
-
-plot_clusters(income_kmeans, 5, "Annual Income", "Spending Score")
-
-
-# In[7]:
-
+# plot_clusters(income_kmeans, 5, "Annual Income", "Spending Score")
 
 # k-means clustering based on Age¶
 data = customers_df.iloc[:, [2, 4]].values
@@ -165,21 +135,12 @@ for i in range(1, 11):
     age_kmeans.fit_predict(data)
     E.append(age_kmeans.inertia_)  # inertia_ = to find the MSE value
 
-plt.plot(range(1, 11), E)
-plt.title("MSE by Number of Clusters")
-plt.xlabel("Number of Clusters")
-plt.ylabel("MSE")
-plt.show()
-
-
-# In[8]:
-
-
-plot_clusters(age_kmeans, 4, "Age", "Spending Score")
-
-
-# In[9]:
-
+# plt.plot(range(1, 11), E)
+# plt.title("MSE by Number of Clusters")
+# plt.xlabel("Number of Clusters")
+# plt.ylabel("MSE")
+# plt.show()
+# plot_clusters(age_kmeans, 4, "Age", "Spending Score")
 
 # GMM clustering based on Annual Income¶
 data = customers_df.iloc[:, [3, 4]].values
@@ -193,29 +154,21 @@ for i in range(1, 11):
     BIC.append(income_gmm.bic(data))
     AIC.append(income_gmm.aic(data))
 
-# Tracé du graphique BIC
-plt.plot(range(1, 11), BIC, marker="o")
-plt.title("BIC by Number of Clusters")
-plt.xlabel("Number of Clusters")
-plt.ylabel("BIC")
-plt.show()
+# # Tracé du graphique BIC
+# plt.plot(range(1, 11), BIC, marker="o")
+# plt.title("BIC by Number of Clusters")
+# plt.xlabel("Number of Clusters")
+# plt.ylabel("BIC")
+# plt.show()
 
-# Tracé du graphique AIC
-plt.plot(range(1, 11), AIC, marker="o")
-plt.title("AIC by Number of Clusters")
-plt.xlabel("Number of Clusters")
-plt.ylabel("AIC")
-plt.show()
+# # Tracé du graphique AIC
+# plt.plot(range(1, 11), AIC, marker="o")
+# plt.title("AIC by Number of Clusters")
+# plt.xlabel("Number of Clusters")
+# plt.ylabel("AIC")
+# plt.show()
 
-
-# In[10]:
-
-
-plot_clusters(income_gmm, 5, "Annual Income", "Spending Score")
-
-
-# In[11]:
-
+# plot_clusters(income_gmm, 5, "Annual Income", "Spending Score")
 
 # GMM clustering based on Age¶
 data = customers_df.iloc[:, [2, 4]].values
@@ -229,38 +182,30 @@ for i in range(1, 11):
     BIC.append(age_gmm.bic(data))
     AIC.append(age_gmm.aic(data))
 
-# Tracé du graphique BIC
-plt.plot(range(1, 11), BIC, marker="o")
-plt.title("BIC by Number of Clusters")
-plt.xlabel("Number of Clusters")
-plt.ylabel("BIC")
-plt.show()
+# # Tracé du graphique BIC
+# plt.plot(range(1, 11), BIC, marker="o")
+# plt.title("BIC by Number of Clusters")
+# plt.xlabel("Number of Clusters")
+# plt.ylabel("BIC")
+# plt.show()
 
-# Tracé du graphique AIC
-plt.plot(range(1, 11), AIC, marker="o")
-plt.title("AIC by Number of Clusters")
-plt.xlabel("Number of Clusters")
-plt.ylabel("AIC")
-plt.show()
+# # Tracé du graphique AIC
+# plt.plot(range(1, 11), AIC, marker="o")
+# plt.title("AIC by Number of Clusters")
+# plt.xlabel("Number of Clusters")
+# plt.ylabel("AIC")
+# plt.show()
 
+# plot_clusters(age_gmm, 3, "Age", "Spending Score")
 
-# In[12]:
-
-
-plot_clusters(age_gmm, 3, "Age", "Spending Score")
-
-
-# In[13]:
-
-
-with open("../backend/endpoints/models/income_kmeans_model.pkl", "wb") as f:
+with open("backend/endpoints/models/income_kmeans_model.pkl", "wb") as f:
     pickle.dump(income_kmeans, f)
 
-with open("../backend/endpoints/models/age_kmeans_model.pkl", "wb") as f:
+with open("backend/endpoints/models/age_kmeans_model.pkl", "wb") as f:
     pickle.dump(age_kmeans, f)
 
-with open("../backend/endpoints/models/income_gmm_model.pkl", "wb") as f:
+with open("backend/endpoints/models/income_gmm_model.pkl", "wb") as f:
     pickle.dump(income_gmm, f)
 
-with open("../backend/endpoints/models/age_gmm_model.pkl", "wb") as f:
+with open("backend/endpoints/models/age_gmm_model.pkl", "wb") as f:
     pickle.dump(age_gmm, f)

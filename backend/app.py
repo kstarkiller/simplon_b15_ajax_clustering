@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 from endpoints.pca import pca_predict
 from endpoints.kmeans_and_gmm import (
     income_kmeans_predict,
     age_kmeans_predict,
     income_gmm_predict,
     age_gmm_predict,
-)
+)  
 
 app = FastAPI()
 

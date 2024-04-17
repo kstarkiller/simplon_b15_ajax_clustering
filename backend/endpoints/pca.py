@@ -1,25 +1,28 @@
 import pandas as pd
+import os
 from sklearn.preprocessing import StandardScaler
 import base64
 from io import BytesIO
 import pickle
 import matplotlib.pyplot as plt
-
-
+ 
 def pca_predict():
     """
     Load the Mall Customers dataset, apply PCA and KMeans clustering,
     and return the original data and a base64 plot.
     """
-    data = pd.read_csv("data/Mall_Customers.csv")
-    data_numeric = data.drop(["CustomerID", "Gender"], axis=1)
+    script_dir = os.path.dirname(__file__)  # get the directory of the current script
+    file_path = os.path.join(script_dir, "data/Mall_Customers.csv")  # join the script directory with the relative file path
+    data = pd.read_csv(file_path)
+    data_numeric = data.drop(["CustomerID", "Gender"], axis=1) 
 
     # Scale data
     scaler = StandardScaler()
     data_scaled = scaler.fit_transform(data_numeric)
 
     # Load PCA model
-    with open("models/pca.pkl", "rb") as file:
+    pca_path = os.path.join(script_dir, "models/pca.pkl")
+    with open(pca_path, "rb") as file:
         pca = pickle.load(file)
 
     # Apply PCA transformation
@@ -27,7 +30,8 @@ def pca_predict():
     pca_df = pd.DataFrame(principal_components[:, :2], columns=["PC1", "PC2"])
 
     # Load KMeans model
-    with open("models/kmeans.pkl", "rb") as file:
+    kmeans_path = os.path.join(script_dir, "models/kmeans.pkl")
+    with open(kmeans_path, "rb") as file:
         kmeans = pickle.load(file)
 
     # Predict clusters
