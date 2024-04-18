@@ -18,7 +18,7 @@ jobs:
       BACKEND_IMAGE_NAME: backend
       FRONTEND_IMAGE_NAME: frontend
       BACKEND_APP_NAME: backend-app
-      FRONTEND_APP_NAME: frontend-app
+      FRONTEND_APP_NAME: frontend-app 
       
     steps:
       - name: Checkout repository
