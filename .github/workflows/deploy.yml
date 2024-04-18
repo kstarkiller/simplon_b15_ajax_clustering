@@ -53,14 +53,14 @@ jobs:
         with:
             azcliversion: latest
             inlineScript: |
-              az container create --resource-group kev-b16 --name backend --image kevb15registry.azurecr.io/backend --cpu 1 --memory 1.5 --ports 8000 --dns-name-label backend --location centralfrance --restart-policy Always
+              az container create --resource-group kev-b16 --name backend --image kevb15registry.azurecr.io/backend --cpu 1 --memory 1.5 --ports 8000 --dns-name-label backend --location centralfrance --restart-policy Always --registry-username kevb15registry --registry-password ${{ secrets.ACR_PASSWORD }}
   
       - name: Create the frontend Container Instances
         uses: azure/CLI@v1
         with:
             azcliversion: latest
             inlineScript: |
-              az container create --resource-group kev-b16 --name frontend --image kevb15registry.azurecr.io/frontend --cpu 1 --memory 1.5 --ports 8080 --dns-name-label frontend --location centralfrance --restart-policy Always
+              az container create --resource-group kev-b16 --name frontend --image kevb15registry.azurecr.io/frontend --cpu 1 --memory 1.5 --ports 8080 --dns-name-label frontend --location centralfrance --restart-policy Always --registry-username kevb15registry --registry-password ${{ secrets.ACR_PASSWORD }}
 
       # - name: Deploy to Azure Web App - Backend
       #   uses: azure/webapps-deploy@v2
