@@ -12,13 +12,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
-    # env:
-    #   ACR_REGISTRY: kevb15registry.azurecr.io
-    #   BACKEND_IMAGE_NAME: backend
-    #   FRONTEND_IMAGE_NAME: frontend
-    #   BACKEND_APP_NAME: backend-app
-    #   FRONTEND_APP_NAME: frontend-app 
       
     steps:
       - name: Checkout repository
@@ -39,8 +32,8 @@ jobs:
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ env.ACR_REGISTRY }}
-          username: ${{ env.ACR_REGISTRY }}
+          login-server: kevb15registry.azurecr.io
+          username: kevb15registry
           password: ${{ secrets.ACR_PASSWORD }} 
 
       - name: Build and push backend Docker image
@@ -58,11 +51,11 @@ jobs:
       - name: Deploy to Azure Web App - Backend
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.BACKEND_APP_NAME }}
-          images: ${{ env.ACR_REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:${{ github.sha }}
+          app-name: backend-app
+          images: kevb15registry.azurecr.io/backend
 
       - name: Deploy to Azure Web App - Frontend
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.FRONTEND_APP_NAME }}
-          images: ${{ env.ACR_REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ github.sha }}
+          app-name: frontend-app 
+          images: kevb15registry.azurecr.io/frontend
