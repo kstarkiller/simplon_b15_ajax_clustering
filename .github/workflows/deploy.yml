@@ -13,12 +13,12 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
-    env:
-      ACR_REGISTRY: kevb15registry.azurecr.io
-      BACKEND_IMAGE_NAME: backend
-      FRONTEND_IMAGE_NAME: frontend
-      BACKEND_APP_NAME: backend-app
-      FRONTEND_APP_NAME: frontend-app 
+    # env:
+    #   ACR_REGISTRY: kevb15registry.azurecr.io
+    #   BACKEND_IMAGE_NAME: backend
+    #   FRONTEND_IMAGE_NAME: frontend
+    #   BACKEND_APP_NAME: backend-app
+    #   FRONTEND_APP_NAME: frontend-app 
       
     steps:
       - name: Checkout repository
@@ -46,14 +46,14 @@ jobs:
       - name: Build and push backend Docker image
         working-directory: backend
         run: |
-          docker build . -t ${{ env.ACR_REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:${{ github.sha }}
-          docker push ${{ env.ACR_REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:${{ github.sha }}
+          docker build -t kevb15registry.azurecr.io/backend
+          docker push kevb15registry.azurecr.io/backend
 
       - name: Build and push frontend Docker image
         working-directory: frontend
         run: |
-          docker build . -t ${{ env.ACR_REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ github.sha }}
-          docker push ${{ env.ACR_REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ github.sha }}
+          docker build -t kevb15registry.azurecr.io/frontend
+          docker push kevb15registry.azurecr.io/frontend
 
       - name: Deploy to Azure Web App - Backend
         uses: azure/webapps-deploy@v2
