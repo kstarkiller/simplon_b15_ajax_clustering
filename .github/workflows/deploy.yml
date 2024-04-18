@@ -49,7 +49,7 @@ jobs:
           docker push kevb15registry.azurecr.io/frontend
 
       - name: Create the backend Container Instances
-        uses: azure/containers-deploy@v1
+        uses: azure/aci-deployment-action@v1
         with:
             resource-group: kev-b16
             dns-name-label: backend
@@ -62,7 +62,7 @@ jobs:
             restart-policy: Always
 
       - name: Create the frontend Container Instances
-        uses: azure/containers-deploy@v1
+        uses: azure/aci-deployment-action@v1
         with:
             resource-group: kev-b16
             dns-name-label: frontend
