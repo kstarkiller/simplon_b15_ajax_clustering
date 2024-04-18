@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import pickle
 
-data = pd.read_csv("backend/endpoints/data/Mall_Customers.csv")
+data = pd.read_csv("../backend/endpoints/data/Mall_Customers.csv")
 clusters = [2, 3, 4, 5, 6]
 data_numeric = data.drop(["CustomerID", "Gender"], axis=1)
 
@@ -18,7 +18,7 @@ pca = PCA(n_components=2)
 principal_components = pca.fit_transform(data_scaled)
 
 # Save PCA Model
-with open("backend/endpoints/models/pca.pkl", "wb") as file:
+with open("../backend/endpoints/models/pca.pkl", "wb") as file:
     pickle.dump(pca, file)
 
 # Train KMeans models and visualize
@@ -46,5 +46,5 @@ for num_clusters in clusters:
     plt.show()
 
 # Save the last KMeans model
-with open("backend/endpoints/models/kmeans.pkl", "wb") as file:
+with open("../backend/endpoints/models/kmeans.pkl", "wb") as file:
     pickle.dump(kmeans, file)

@@ -25,16 +25,6 @@ def plot_clusters(model, n_clusters, x, y):
         "Red",
         "Blue",
         "Green",
-        "Yellow",
-        "Purple",
-        "Orange",
-        "Pink",
-        "Brown",
-        "Gray",
-        "Cyan",
-        "Magenta",
-        "Lime",
-        "Teal",
         "Lavender",
         "Maroon",
         "Olive",
@@ -66,7 +56,7 @@ def plot_clusters(model, n_clusters, x, y):
     plt.legend()
     plt.show()
 
-customers_df = pd.read_csv("backend/endpoints/data/Mall_Customers.csv")
+customers_df = pd.read_csv("../backend/endpoints/data/Mall_Customers.csv")
 customers_df.sample(10)
 
 # fig = px.scatter_3d(
@@ -198,14 +188,14 @@ for i in range(1, 11):
 
 # plot_clusters(age_gmm, 3, "Age", "Spending Score")
 
-with open("backend/endpoints/models/income_kmeans_model.pkl", "wb") as f:
+with open("../backend/endpoints/models/income_kmeans_model.pkl", "wb") as f:
     pickle.dump(income_kmeans, f)
 
-with open("backend/endpoints/models/age_kmeans_model.pkl", "wb") as f:
+with open("../backend/endpoints/models/age_kmeans_model.pkl", "wb") as f:
     pickle.dump(age_kmeans, f)
 
-with open("backend/endpoints/models/income_gmm_model.pkl", "wb") as f:
+with open("../backend/endpoints/models/income_gmm_model.pkl", "wb") as f:
     pickle.dump(income_gmm, f)
 
-with open("backend/endpoints/models/age_gmm_model.pkl", "wb") as f:
+with open("../backend/endpoints/models/age_gmm_model.pkl", "wb") as f:
     pickle.dump(age_gmm, f)
