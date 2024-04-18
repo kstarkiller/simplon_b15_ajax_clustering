@@ -34,5 +34,5 @@ properties:
       port: 8080
     - protocol: tcp
       port: 8000
-tags: {exampleTag: kevB15}
+tags: {kevB15}
 type: Microsoft.ContainerInstance/containerGroups
