@@ -48,28 +48,31 @@ jobs:
           docker build -t kevb15registry.azurecr.io/frontend .
           docker push kevb15registry.azurecr.io/frontend
 
-      - name: Create the Container Instances
-        uses: azure/container-instances@v2
+      - name: Create the backend Container Instances
+        uses: azure/containers-deploy@v1
         with:
-          resource-group: kev-b16
-          name: kev-aci
-          location: centralfrance
-          containers: |
-            - name: backend
-              image: kevb15registry.azurecr.io/backend
-              dns-name-label: backend-container
-              cpu: 1
-              memory: 1.5
-              ports:
-                - 8000
-            - name: frontend
-              image: kevb15registry.azurecr.io/frontend
-              dns-name-label: frontend-container
-              cpu: 1
-              memory: 1.5
-              ports:
-                - 8080
-          restart-policy: Always
+            resource-group: kev-b16
+            dns-name-label: backend
+            location: centralfrance
+            container-name: backend
+            image: kevb15registry.azurecr.io/backend
+            cpu: 1
+            memory: 1.5
+            ports: 8000
+            restart-policy: Always
+
+      - name: Create the frontend Container Instances
+        uses: azure/containers-deploy@v1
+        with:
+            resource-group: kev-b16
+            dns-name-label: frontend
+            location: centralfrance
+            container-name: frontend
+            image: kevb15registry.azurecr.io/frontend
+            cpu: 1
+            memory: 1.5
+            ports: 8080
+            restart-policy: Always
 
       # - name: Deploy to Azure Web App - Backend
       #   uses: azure/webapps-deploy@v2
