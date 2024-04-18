@@ -48,28 +48,16 @@ jobs:
           docker build -t kevb15registry.azurecr.io/frontend .
           docker push kevb15registry.azurecr.io/frontend
 
-      - name: Create the backend Container Instances
-        uses: azure/CLI@v1
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v2
         with:
-            azcliversion: latest
-            inlineScript: |
-              az container create --resource-group kev-b16 --name backend --image kevb15registry.azurecr.io/backend --cpu 1 --memory 1.5 --ports 8000 --dns-name-label backend --location centralfrance --restart-policy Always --registry-username kevb15registry --registry-password ${{ secrets.ACR_PASSWORD }}
-  
-      - name: Create the frontend Container Instances
-        uses: azure/CLI@v1
-        with:
-            azcliversion: latest
-            inlineScript: |
-              az container create --resource-group kev-b16 --name frontend --image kevb15registry.azurecr.io/frontend --cpu 1 --memory 1.5 --ports 8080 --dns-name-label frontend --location centralfrance --restart-policy Always --registry-username kevb15registry --registry-password ${{ secrets.ACR_PASSWORD }}
-
-      # - name: Deploy to Azure Web App - Backend
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: backend-app
-      #     images: kevb15registry.azurecr.io/backend
-
-      # - name: Deploy to Azure Web App - Frontend
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: frontend-app 
-      #     images: kevb15registry.azurecr.io/frontend
+          find: "password.registry"
+          replace: ${{ secrets.ACR_PASSWORD }}
+          regex: false
+          include: 'deploy-aci.yaml'
+        
+      - name: Delete Previous Same Container Instances
+        run: az container delete --resource-group kev_b16 --name kevContainerGroupB15 --yes
+    
+      - name: Deploy to Azure Container Instances
+        run: az container create --resource-group kev_b16 --file deploy-aci.yaml

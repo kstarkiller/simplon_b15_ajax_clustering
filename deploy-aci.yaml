@@ -1,0 +1,38 @@
+apiVersion: 2023-05-01
+location: centralfrance
+name: kevContainerGroupB15-2
+properties:
+  imageRegistryCredentials:
+      - server: kevb15registry.azurecr.io
+        username: kevb15registry
+        password: password.registry
+  containers:
+  - name: kev-b15-front
+    properties:
+      image: kevb15registry.azurecr.io/frontedn:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 8080
+  - name: kev-b15-back
+    properties:
+      image: kevb15registry.azurecr.io/backend:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 8000
+  osType: Linux
+  ipAddress:
+    type: Public
+    dnsNameLabel: kev-ajax-clustering
+    ports:
+    - protocol: tcp
+      port: 8080
+    - protocol: tcp
+      port: 8000
+tags: {exampleTag: kevB15}
+type: Microsoft.ContainerInstance/containerGroups
