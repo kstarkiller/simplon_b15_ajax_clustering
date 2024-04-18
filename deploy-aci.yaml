@@ -1,6 +1,6 @@
 apiVersion: 2023-05-01
 location: westeurope
-name: kevContainerGroupB15-2
+name: kevContainerGroupB15
 properties:
   imageRegistryCredentials:
       - server: kevb15registry.azurecr.io
