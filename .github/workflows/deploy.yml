@@ -34,7 +34,12 @@ jobs:
         with:
           login-server: kevb15registry.azurecr.io
           username: kevb15registry
-          password: ${{ secrets.ACR_PASSWORD }} 
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Run tests
+        run: |
+            cd ../../backend/
+            python -m unittest api_test.py
 
       - name: Build and push backend Docker image
         working-directory: backend
