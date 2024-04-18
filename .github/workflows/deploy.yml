@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      ACR_REGISTRY: ajaxclusterappacr.azurecr.io
+      ACR_REGISTRY: kevb15registry.azurecr.io
       BACKEND_IMAGE_NAME: backend
       FRONTEND_IMAGE_NAME: frontend
       BACKEND_APP_NAME: backend-app
