@@ -38,6 +38,7 @@ jobs:
 
       - name: Run tests
         run: |
+            export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
             python -m unittest backend/api_test.py
 
       - name: Build and push backend Docker image
