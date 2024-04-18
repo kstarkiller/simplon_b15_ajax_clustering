@@ -47,7 +47,7 @@ jobs:
           pip install pandas
           pip install matplotlib
           pip install scikit-learn
-          pip install pickle
+          pip install pickle5
   
       - name: Run tests
         run: |
