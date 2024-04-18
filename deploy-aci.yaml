@@ -9,7 +9,7 @@ properties:
   containers:
   - name: kev-b15-front
     properties:
-      image: kevb15registry.azurecr.io/frontedn:latest
+      image: kevb15registry.azurecr.io/frontend:latest
       resources:
         requests:
           cpu: 1
