@@ -38,8 +38,8 @@ jobs:
 
       - name: Run tests
         run: |
-            cd ../../backend/
-            python -m unittest api_test.py
+              cd b15_ajax_clustering/repo_b15/backend/
+              python -m unittest api_test.py
 
       - name: Build and push backend Docker image
         working-directory: backend
