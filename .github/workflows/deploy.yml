@@ -39,13 +39,13 @@ jobs:
       - name: Build and push backend Docker image
         working-directory: backend
         run: |
-          docker build -t kevb15registry.azurecr.io/backend
+          docker build -t kevb15registry.azurecr.io/backend .
           docker push kevb15registry.azurecr.io/backend
 
       - name: Build and push frontend Docker image
         working-directory: frontend
         run: |
-          docker build -t kevb15registry.azurecr.io/frontend
+          docker build -t kevb15registry.azurecr.io/frontend .
           docker push kevb15registry.azurecr.io/frontend
 
       - name: Deploy to Azure Web App - Backend
