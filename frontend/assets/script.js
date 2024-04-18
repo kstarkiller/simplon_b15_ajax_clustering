@@ -7,7 +7,7 @@ $(document).ready(function () {
   varChoice.onchange = function () {
     if (varChoice.value == "PCA") {
       $.ajax({
-        url: "http://localhost:8000/plot_pca/",
+        url: "http://kev-ajax-clustering.westeurope.azurecontainer.io:8000/plot_pca/",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -37,7 +37,7 @@ $(document).ready(function () {
       });
     } else if (varChoice.value == "kmeans") {
       $.ajax({
-        url: "http://localhost:8000/plot_income_kmeans/",
+        url: "http://kev-ajax-clustering.westeurope.azurecontainer.io:8000/plot_income_kmeans/",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -67,7 +67,7 @@ $(document).ready(function () {
       });
     } else if (varChoice.value == "gmm") {
       $.ajax({
-        url: "http://localhost:8000/plot_age_gmm/",
+        url: "http://kev-ajax-clustering.westeurope.azurecontainer.io:8000/plot_age_gmm/",
         method: "GET",
         dataType: "json",
         success: function (data) {
