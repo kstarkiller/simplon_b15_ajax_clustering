@@ -41,7 +41,7 @@ jobs:
         with:
           login-server: ${{ env.ACR_REGISTRY }}
           username: ${{ env.ACR_REGISTRY }}
-          password: ${{ secrets.ACR_PASSWORD }}
+          password: ${{ secrets.ACR_PASSWORD }} 
 
       - name: Build and push backend Docker image
         working-directory: backend
