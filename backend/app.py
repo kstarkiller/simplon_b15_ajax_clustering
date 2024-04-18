@@ -7,7 +7,7 @@ from endpoints.kmeans_and_gmm import (
     age_kmeans_predict,
     income_gmm_predict,
     age_gmm_predict,
-)  
+)
 
 app = FastAPI()
 

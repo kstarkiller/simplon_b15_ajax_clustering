@@ -5,16 +5,19 @@ import base64
 from io import BytesIO
 import pickle
 import matplotlib.pyplot as plt
- 
+
+
 def pca_predict():
     """
     Load the Mall Customers dataset, apply PCA and KMeans clustering,
     and return the original data and a base64 plot.
     """
     script_dir = os.path.dirname(__file__)  # get the directory of the current script
-    file_path = os.path.join(script_dir, "data/Mall_Customers.csv")  # join the script directory with the relative file path
+    file_path = os.path.join(
+        script_dir, "data/Mall_Customers.csv"
+    )  # join the script directory with the relative file path
     data = pd.read_csv(file_path)
-    data_numeric = data.drop(["CustomerID", "Gender"], axis=1) 
+    data_numeric = data.drop(["CustomerID", "Gender"], axis=1)
 
     # Scale data
     scaler = StandardScaler()

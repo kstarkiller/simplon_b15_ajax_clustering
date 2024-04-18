@@ -7,11 +7,14 @@ import base64
 from io import BytesIO
 from sklearn.cluster import KMeans
 
+
 def income_kmeans_predict(n_clusters=5):
     script_dir = os.path.dirname(__file__)  # get the directory of the current script
-    file_path = os.path.join(script_dir, "data/Mall_Customers.csv")  # join the script directory with the relative file path
+    file_path = os.path.join(
+        script_dir, "data/Mall_Customers.csv"
+    )  # join the script directory with the relative file path
     df = pd.read_csv(file_path)
-    df.sample(10) 
+    df.sample(10)
 
     # k-means clustering based on annual income
     data = df.iloc[:, [3, 4]].values
@@ -66,7 +69,9 @@ def income_kmeans_predict(n_clusters=5):
 
 def age_kmeans_predict(n_clusters=5):
     script_dir = os.path.dirname(__file__)  # get the directory of the current script
-    file_path = os.path.join(script_dir, "data/Mall_Customers.csv")  # join the script directory with the relative file path
+    file_path = os.path.join(
+        script_dir, "data/Mall_Customers.csv"
+    )  # join the script directory with the relative file path
     df = pd.read_csv(file_path)
     df.sample(10)
 
@@ -139,7 +144,9 @@ def age_kmeans_predict(n_clusters=5):
 
 def income_gmm_predict(n_clusters=5):
     script_dir = os.path.dirname(__file__)  # get the directory of the current script
-    file_path = os.path.join(script_dir, "data/Mall_Customers.csv")  # join the script directory with the relative file path
+    file_path = os.path.join(
+        script_dir, "data/Mall_Customers.csv"
+    )  # join the script directory with the relative file path
     df = pd.read_csv(file_path)
     df.sample(10)
 
@@ -207,7 +214,9 @@ def income_gmm_predict(n_clusters=5):
 
 def age_gmm_predict(n_clusters=5):
     script_dir = os.path.dirname(__file__)  # get the directory of the current script
-    file_path = os.path.join(script_dir, "data/Mall_Customers.csv")  # join the script directory with the relative file path
+    file_path = os.path.join(
+        script_dir, "data/Mall_Customers.csv"
+    )  # join the script directory with the relative file path
     df = pd.read_csv(file_path)
     df.sample(10)
 

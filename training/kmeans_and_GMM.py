@@ -1,9 +1,11 @@
 # import numpy as np
 import pandas as pd
+
 # import seaborn as sns
 import plotly.express as px
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+
 # from sklearn.preprocessing import LabelEncoder
 
 # from sklearn.metrics import classification_report, adjusted_rand_score, accuracy_score
@@ -55,6 +57,7 @@ def plot_clusters(model, n_clusters, x, y):
     plt.ylabel(y)
     plt.legend()
     plt.show()
+
 
 customers_df = pd.read_csv("../backend/endpoints/data/Mall_Customers.csv")
 customers_df.sample(10)
